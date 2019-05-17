@@ -3,6 +3,8 @@ package exam;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * @author choijaeyong on 11/05/2019.
  * @project junit5test2
@@ -10,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class Test1Test {
 
-  @org.junit.jupiter.api.Test
-  void sum() {
+  @Test
+  public void context() {
 
   }
 }
