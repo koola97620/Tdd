@@ -1,8 +1,7 @@
-package Main;
-
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * @author choijaeyong on 05/05/2019.
