@@ -1,6 +1,6 @@
-import static org.junit.Assert.*;
-
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -14,6 +14,6 @@ public class Test1Test {
   public void sum() {
     Dollar five = new Dollar(5);
     five.times(2);
-    assertEquals(10,five.amount);
+    assertThat(five.amount).isEqualTo(10);
   }
 }
