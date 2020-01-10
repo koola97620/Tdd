@@ -1,21 +1,19 @@
 package effectiveStudy;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Or;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class Testeff {
+public class EffectiveUnitTest {
 
     @Test
     public void order_test() {
         Customer customer = new Customer();
-        Coffee coffee = new Coffee("latte");
         Order order = new Order();
         CoffeeSeller coffeeSeller = new CoffeeSeller();
 
@@ -33,49 +31,61 @@ public class Testeff {
 
     @Test
     public void menu_list() {
-        CoffeeSeller coffeeSeller = new CoffeeSeller();
+        CoffeeSellerFake coffeeSeller = new CoffeeSellerFake();
         Recipe recipe = new Recipe();
-        coffeeSeller.saveRecipe(recipe);
         // 레포지토리 미구현~
+
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> coffeeSeller.saveRecipe(coffeeSeller, recipe));
     }
 
     @Test
-    public void menu_list_fake() {
+    public void exam_menu_list_fake() {
         CoffeeSellerFake coffeeSeller = new CoffeeSellerFake();
-        Recipe recipe = new Recipe();
+        Recipe recipe1 = new Recipe("americano");
+        Recipe recipe2 = new Recipe("latte");
+        Recipe recipe3 = new Recipe("green tea");
+
+        coffeeSeller.saveRecipe(coffeeSeller, recipe1);
+        coffeeSeller.saveRecipe(coffeeSeller, recipe2);
+        coffeeSeller.saveRecipe(coffeeSeller, recipe3);
         //coffeeSeller.saveRecipe(recipe);
-        coffeeSeller.getRecipes();
-        System.out.println(coffeeSeller.getRecipes().size());
 
-
+        assertThat(coffeeSeller.getRecipes().size()).isEqualTo(3);
     }
-
-
-
 
 
 
 
     private interface Seller<T> {
         T acceptOrder(Order order);
+        void saveRecipe(CoffeeSellerFake coffeeSeller, Recipe recipe);
     }
 
     private static class CoffeeSeller implements Seller{
-        private CoffeeMachine coffeeMachine;
+        private String sellerName;
+        private CoffeeMachine coffeeMachine = new CoffeeMachine();
         private CoffeeRecipeRepository coffeeRecipeRepository;
 
         @Override
         public Coffee acceptOrder(Order order)  {
-            Coffee coffee = coffeeMachine.makeCoffee(order);
-            return coffee;
+            return coffeeMachine.makeCoffee(order);
         }
 
-        public void saveRecipe(Recipe recipe) {
+        @Override
+        public void saveRecipe(CoffeeSellerFake coffeeSeller, Recipe recipe) {
             coffeeRecipeRepository.saveRecipe(recipe);
         }
 
         public List<Recipe> getRecipes() {
             return coffeeRecipeRepository.getRecipes();
+        }
+
+        public void setSellerName(String sellerName) {
+            this.sellerName = sellerName;
+        }
+
+        public String getSellerName() {
+            return this.sellerName;
         }
 
 
@@ -129,16 +139,33 @@ public class Testeff {
     @NoArgsConstructor
     private static class Recipe {
         private String name;
+        private String creatorName;
 
         public Recipe(String name) {
             this.name = name;
         }
+
     }
 
-    private class CoffeeSellerFake extends CoffeeSeller {
+    private static class CoffeeSellerFake extends CoffeeSeller {
+        private List<Recipe> recipes = new ArrayList<>();
+
+//        @Override
+//        public List<Recipe> getRecipes() {
+//            return Arrays.asList(new Recipe("1") , new Recipe("2"));
+//        }
         @Override
         public List<Recipe> getRecipes() {
-            return Arrays.asList(new Recipe("1") , new Recipe("2"));
+            return this.recipes;
+        }
+
+        public void saveRecipe(CoffeeSellerFake coffeeSeller, Recipe recipe) {
+            this.recipes.add(recipe);
         }
     }
+
+    private static class SpyRecipe extends  Recipe {
+        
+    }
+
 }
