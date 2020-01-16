@@ -27,6 +27,11 @@ public class ItemRepositoryTest {
         assertThat(persistItem.getId()).isEqualTo(5);
     }
 
+    @Test
+    public void commitTest() {
+        System.out.println();
+    }
+
 
 
 }
