@@ -2,6 +2,7 @@ package me.jdragon.atdd.rentalExam;
 
 import me.jdragon.atdd.controller.RentalController;
 import me.jdragon.atdd.service.RentalService;
+import me.jdragon.atdd.vo.InvalidItemException;
 import me.jdragon.atdd.vo.Item;
 import me.jdragon.atdd.vo.Rental;
 import org.junit.jupiter.api.DisplayName;
@@ -50,9 +51,25 @@ public class RentalControllerTest {
                 .andExpect(header().exists("Location"))
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.date").value("20191127"))
-                .andExpect(jsonPath("$.itemid").value("110920"))
+                .andExpect(jsonPath("$.item.id").value("110920"))
                 .andExpect(jsonPath("$.status").value("READY"))
                 .andDo(print());
     }
 
+    @DisplayName("대여 신청 시 아이템이 이미 대여중인 경우 400에러를 응답한다")
+    @Test
+    public void createRentalWithInvalidItemId() throws Exception {
+        given(rentalService.createRental(any())).willThrow(new InvalidItemException());
+
+        String inputJson = "{\"date\":\"" + "20191127" + "\", " +
+                "\"itemId\":\"" + "111" + "\"}";
+
+        mockMvc.perform(post("/rentals")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(inputJson)
+                )
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
 }
