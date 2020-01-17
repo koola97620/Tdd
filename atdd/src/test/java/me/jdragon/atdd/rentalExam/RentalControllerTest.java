@@ -53,8 +53,6 @@ public class RentalControllerTest {
                 .andExpect(jsonPath("$.itemid").value("110920"))
                 .andExpect(jsonPath("$.status").value("READY"))
                 .andDo(print());
-
-
-
     }
+
 }

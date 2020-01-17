@@ -43,5 +43,6 @@ public class RentalServiceTest {
         Rental persistRental = rentalService.createRental(rentalRequestDto);
 
         assertThat(persistRental).isNotNull();
+
     }
 }

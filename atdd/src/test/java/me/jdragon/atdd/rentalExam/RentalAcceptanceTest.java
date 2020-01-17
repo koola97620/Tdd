@@ -36,5 +36,6 @@ public class RentalAcceptanceTest {
                 .jsonPath("$").isNotEmpty()
                 .jsonPath("$.id").isNotEmpty()
                 .jsonPath("$.status").isEqualTo("READY");
+
     }
 }

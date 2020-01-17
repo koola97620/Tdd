@@ -26,5 +26,6 @@ public class RentalRepositoryTest {
         Rental persistRental = rentalRepository.save(rental);
 
         assertThat(persistRental.getId()).isEqualTo(1);
+
     }
 }

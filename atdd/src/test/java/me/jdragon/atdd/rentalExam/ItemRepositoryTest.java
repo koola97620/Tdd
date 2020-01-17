@@ -34,5 +34,7 @@ public class ItemRepositoryTest {
 
     @Test
     public void repoTest(){}
+    @Test
+    public void repoTest2(){}
 
 }
