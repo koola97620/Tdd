@@ -32,6 +32,7 @@ public class ItemRepositoryTest {
         System.out.println();
     }
 
-
+    @Test
+    public void repoTest(){}
 
 }
