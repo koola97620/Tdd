@@ -19,6 +19,7 @@ public class RentalService {
     }
 
     public Rental createRental(RentalRequestDto requestDto) {
+        System.out.println("-==----------------------- requestDto.getItemId() : " + requestDto.getItemId());
         Item persistItem = itemRepository.findById(requestDto.getItemId());
         Rental persistRental = new Rental(requestDto.getDate(), persistItem, "READY");
         return rentalRepository.save(persistRental);

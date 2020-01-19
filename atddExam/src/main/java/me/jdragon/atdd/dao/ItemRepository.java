@@ -13,6 +13,9 @@ public class ItemRepository {
     private Map<Integer, Item> items = new HashMap<>();
 
     public Item findById(int itemId) {
+        if (!items.containsKey(itemId)) {
+            items.put(itemId, new Item(itemId,"READY"));
+        }
         return items.get(itemId);
     }
 

@@ -4,20 +4,20 @@ public class Rental {
     private int id;
     private String date;
     private Item item;
-    private String ready;
     private String status;
 
-    public Rental(int id, String s, Item item, String ready) {
+    public Rental(int id, String s, Item item, String status) {
         this.id = id;
         this.date = s;
         this.item = item;
-        this.status = ready;
+        this.status = status;
     }
 
-    public Rental(String date, Item persistItem, String ready) {
+    public Rental(String date, Item item, String status) {
+        item.checkStatus();
         this.date = date;
-        this.item = persistItem;
-        this.ready = ready;
+        this.item = item;
+        this.status = status;
     }
 
     public int getId() {
@@ -30,10 +30,6 @@ public class Rental {
 
     public Item getItem() {
         return item;
-    }
-
-    public String getReady() {
-        return ready;
     }
 
     public String getStatus() {

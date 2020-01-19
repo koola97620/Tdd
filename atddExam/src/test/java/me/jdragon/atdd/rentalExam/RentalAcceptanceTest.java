@@ -18,6 +18,8 @@ public class RentalAcceptanceTest {
     @Autowired
     private WebTestClient webTestClient;
 
+
+
     @Test
     public void createRental() {
         String inputJson = "{\"dateTime\":\"" + "2019120112" + "\", " +
@@ -31,7 +33,7 @@ public class RentalAcceptanceTest {
                 .exchange()
                 .expectStatus().isCreated()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectHeader().valueMatches(LOCATION, "\\/rentals\\/\\d")
+                .expectHeader().valueMatches(LOCATION, "/rentals/1")
                 .expectBody()
                 .jsonPath("$").isNotEmpty()
                 .jsonPath("$.id").isNotEmpty()

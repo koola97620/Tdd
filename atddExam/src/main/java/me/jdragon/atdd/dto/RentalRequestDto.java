@@ -1,15 +1,19 @@
 package me.jdragon.atdd.dto;
 
 public class RentalRequestDto {
-    public RentalRequestDto(String s, int i) {
+    private String date;
+    private int itemId;
 
+    public RentalRequestDto(String date, int itemId) {
+        this.date = date;
+        this.itemId = itemId;
     }
 
     public String getDate() {
-        return null;
+        return date;
     }
 
     public int getItemId() {
-        return 1;
+        return itemId;
     }
 }

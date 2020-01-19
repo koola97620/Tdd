@@ -23,7 +23,7 @@ public class RentalController {
     @PostMapping("/rentals")
     public ResponseEntity createArticles(@RequestBody RentalRequestDto requestDto) {
         Rental rental = rentalService.createRental(requestDto);
-        return ResponseEntity.created(URI.create("/rentals" + rental.getId())).body(rental);
+        return ResponseEntity.created(URI.create("/rentals"+ "/" + rental.getId())).body(rental);
 
     }
 }
