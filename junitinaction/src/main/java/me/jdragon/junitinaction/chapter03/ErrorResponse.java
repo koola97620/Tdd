@@ -10,6 +10,11 @@ public class ErrorResponse implements Response {
   private Request originalRequest;
   private Exception originalException;
 
+  @Override
+  public String getName() {
+    return null;
+  }
+
   public ErrorResponse(Request request, Exception e) {
     this.originalRequest = request;
     this.originalException = e;

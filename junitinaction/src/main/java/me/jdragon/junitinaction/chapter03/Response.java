@@ -6,5 +6,6 @@ package me.jdragon.junitinaction.chapter03;
  * @description
  */
 public interface Response {
+  String getName();
 
 }
