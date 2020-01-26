@@ -1,7 +1,5 @@
 # 05 테스트 커버리지와 개발
 
-
-
 ## 5.1 테스트 커버리지 측정하기
 
 단위테스트를 잘 작성해두면 코드 수정 및 리팩토링 시 자신감이 생겨난다.
@@ -51,6 +49,134 @@
 비공개 메서드는 화이트 박스 테스트를 사용해야 한다
 
 ### 5.2.2 종속성을 줄여라
+
+단위 테스트는 코드를 고립시켜 검증함을 기억하자
+대상 클래스가 일련의 다른 객체들을 직접 혹은 간접적으로 생성하고 있다면??
+그 클래스는 다른 클래스에 종속되어 버린다.
+
+테스트 가능한 코드를 작성하려면 이런 종속성을 가능한 최소화 시켜야 한다.
+클래스가 다수의 다른 클래스들에 종속되어 특정 상태로 셋팅되어 있다면? 테스트가 복잡해진다.
+
+종속성을 줄이는 방법은 코드에서 객체 생성을 담당하는 메서드와 로직 수행 메서드를 분리하는 것이다
+
+~~~ java
+public class Vehicle {
+  Driver d = new Driver();
+  boolean hasDriver = true;
+  private void setHasDriver(boolean hasDriver) {
+    this.hasDriver = hasDriver;
+  }
+}
+~~~
+
+Vehicle 객체는 자신이 생성될 때마다 Driver 객체도 함께 생성된다. 개념이 섞어벼렸다.
+Driver 를 Vehicle 이 생성될 때 건네주는 식으로 만들자. (new 를 없애는 것이다)
+
+### 5.2.3 생성자는 간단하게 만들어라
+
+테스트 케이스의 과정은 다음과 같다
+- 테스트하려는 클래스를 생성한다
+- 생성한 클래스를 특정한 상태가 되도록 설정한다
+- 클래스의 최종 상태를 확인한다
+
+인스턴스 변수에 값을 할당하는게 아니고, 생성자에서 작업을 수행하게 되면
+생성한 클래스가 특정 상태가 되게 설정되어 버린다. 이는 항상 똑같은 상태만 얻는다는 것이다.
+유연한 코드가 될 수 없다
+
+### 5.2.4 최소 지식의 원칙을 따르라
+
+최소 지식의 원칙은 클래스는 반드시 자신에게 꼭 필요한 만큼만 알아야 한다.
+
+~~~ java
+public class Car {
+  private Driver driver;
+  public Car(Context context) {
+    this.driver = context.getDriver();
+  }
+
+}
+~~~
+
+Car 클래스는 Context 객체가 getDriver 메서드를 가지고 있음을 알아야만 하므로 디미터의 법칙에 위배된다
+이 생성자를 테스트 하려면 context 객체가 유효한지부터 확인해야 한다.
+Context 객체에 포함된 변수와 메서드가 많다면 목객체를 사용할 수 밖에 없다.
+
+적절한 해법은 최소 지식의 원칙을 적용하여 꼭 필요한 경우에만 메서드와 생성자에 참고를 건네는 것이다.
+
+~~~ java
+public Car(Driver driver) {
+    this.driver=driver;
+  }
+~~~
+
+아래 지침을 명심하자.
+- 객체를 요구하되, 객체를 검색하지는 말라
+- 애플리케이션에 꼭 필요한 객체만 요청하라
+
+
+### 5.2.5 숨겨진 종속성과 전역 상태를 피하라
+
+전역 상태는 복수의 클라이언트들이 동일한 전역 객체를 공유하도록 허용하므로 주의해서 사용해야 한다.
+
+Reservation 은 데이터베이스 생성이 선행되어야만 한다. 데이터베이스에 접근하기 위해 내부적으로 DBManager 를 사용한다.
+Reservation 클래스의 api는 DBManager를 사용해야 한다는 어떠한 단서도 제공하지 않는다.
+
+이는 종속성을 숨기는 행위이다.
+코드만 보고 어떤 클래스를 사용하기 위해서 사전조건이 필요하다는 것을 파악하기 힘든것을
+숨겨진 종속성이라고 한다??
+
+~~~ java
+
+// 전역상태를 사용하는 예
+public void reserve1() {
+    DBManager manager = new DBManager();
+    manager.initDatabase();
+    Reservation r = new Reservation();
+    r.reserve();
+  }
+// 전역상태 회피한 예
+  public void reserve2() {
+    DBManager manager = new DBManager();
+    manager.initDatabase();
+    Reservation reservation = new Reservation(manager);
+    reservation.reserve();
+  }
+~~~
+
+아래 예에서는 Reservation 객체 생성시에 DBManager 를 명시적으로 받고 있다.
+이는 Reservation 객체는 DBManager 가 설정되었을 때만 동작할 수 있다는걸 말해준다.
+
+> 전역 객체에 접근해야 할 때는, 그 객체뿐 아니라 그 객체가 참고하는 다른 모든 객체도 함께 공유해야 한다.
+
+
+### 5.2.6 싱글톤의 장단점
+
+싱글톤 : 클래스의 인스턴스가 오직 하나 뿐임을 보장하는 디자인 패턴
+
+~~~ java
+public class Singleton {
+//  private Singleton() {}
+//  public static final Singleton INSTANCE = new Singleton();
+
+  private static Singleton INSTANCE;
+  private Singleton() {}
+  public static Singleton getInstance() {
+    if(INSTANCE == null) {
+      INSTANCE = new Singleton();
+    }
+    return INSTANCE;
+  }
+}
+~~~
+
+보통 private 생성자와 정적 변수를 사용해서 생성한다.(주석)
+다른 방법으로는 지연 초기화가 많이 사용된다. (아래 방법)
+
+싱글톤 디자인 패턴은 객체가 단 **한번만** 인스턴스화됨을 보장해야 한다.
+이를 위해 생성자를 private 으로 숨긴다.
+싱글톤은 전역 상태를 만들어 낸다는 명백한 취약점이 존재한다.
+
+### 5.2.7 제너릭 메서드를 애용하라
 
 
 
