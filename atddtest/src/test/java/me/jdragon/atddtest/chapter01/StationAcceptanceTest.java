@@ -7,16 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 
-/**
- * @author choijaeyong on 2020/02/11.
- * @project atddtest
- * @description
- */
 @SpringBootTest
 @AutoConfigureWebTestClient
 public class StationAcceptanceTest {
-  @Autowired
-  private WebTestClient webTestClient;
+//  @Autowired
+//  private WebTestClient webTestClient;
 
   @Test
   public void createStation() {
