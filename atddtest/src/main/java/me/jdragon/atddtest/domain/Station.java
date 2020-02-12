@@ -24,4 +24,8 @@ public class Station {
   public Station(final String name) {
     this.name = name;
   }
+
+  public Object toResponseView() {
+    return null;
+  }
 }
