@@ -10,6 +10,6 @@ import me.jdragon.atddtest.domain.Station;
 public class CreateStationRequestView {
 
   public Station toStation() {
-    return null;
+    return new Station("강남역");
   }
 }
