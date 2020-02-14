@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.print.attribute.standard.Media;
 import me.jdragon.atddtest.controller.StationController;
 import me.jdragon.atddtest.dao.StationRepository;
 import me.jdragon.atddtest.domain.Station;
@@ -79,12 +80,67 @@ public class StationAcceptanceTest {
   @DisplayName("지하철역 정보 조회")
   @Test
   public void getStation() {
+    String stationName = "강남역";
+    String inputJson = "{\"name\":\""+ stationName + "\"}";
+
+    webTestClient.post().uri("/stations")
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(Mono.just(inputJson), String.class)
+        .exchange()
+        .expectStatus().isCreated()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON)
+        .expectHeader().exists("Location")
+        .expectBody().jsonPath("$.name").isEqualTo(stationName);
+
+    webTestClient.get().uri(uriBuilder -> uriBuilder
+      .path("/station")
+        .queryParam("name","강남역")
+        .build())
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().isOk()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON)
+        .expectBody()
+          .jsonPath("$.id").isNotEmpty()
+          .jsonPath("$.name").isEqualTo(stationName);
+
 
   }
 
   @DisplayName("지하철역 삭제")
   @Test
   public void deleteStation() {
+    String stationName = "강남역";
+    String inputJson = "{\"name\":\""+ stationName + "\"}";
+
+    webTestClient.post().uri("/stations")
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(Mono.just(inputJson), String.class)
+        .exchange()
+        .expectStatus().isCreated()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON)
+        .expectHeader().exists("Location")
+        .expectBody().jsonPath("$.name").isEqualTo(stationName);
+
+    webTestClient.delete().uri(uriBuilder -> uriBuilder
+    .path("/station")
+    .queryParam("name" , "강남역")
+    .build())
+        .exchange()
+        .expectStatus().isOk()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON)
+        .expectBody()
+          .jsonPath("$.id").isNotEmpty()
+          .jsonPath("$.name").isEqualTo(stationName);
+
+    webTestClient.get().uri(uriBuilder -> uriBuilder
+        .path("/station")
+        .queryParam("name","강남역")
+        .build())
+        .exchange()
+        .expectStatus().isEqualTo(500);
+
+
 
   }
 

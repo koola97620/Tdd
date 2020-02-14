@@ -1,8 +1,11 @@
 package me.jdragon.atddtest.dao;
 
 import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
 import me.jdragon.atddtest.domain.Station;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,4 +20,11 @@ public interface StationRepository extends JpaRepository<Station,Long> {
   Station save(Station station);
 
   List<Station> findAll();
+
+  Optional<Station> findByName(String name);
+
+  @Transactional
+  @Modifying
+  void deleteByName(String name);
+
 }
