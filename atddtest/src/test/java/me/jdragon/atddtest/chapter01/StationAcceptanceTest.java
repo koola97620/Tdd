@@ -1,26 +1,14 @@
 package me.jdragon.atddtest.chapter01;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.print.attribute.standard.Media;
-import me.jdragon.atddtest.controller.StationController;
-import me.jdragon.atddtest.dao.StationRepository;
-import me.jdragon.atddtest.domain.Station;
-import me.jdragon.atddtest.service.StationService;
-import org.junit.jupiter.api.BeforeEach;
+import me.jdragon.atddtest.chapter01.domain.Station;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -43,7 +31,7 @@ public class StationAcceptanceTest {
     String stationName = "강남역";
     String inputJson = "{\"name\":\""+ stationName + "\"}";
 
-    webTestClient.post().uri("/create-station")
+    webTestClient.post().uri("/stations")
         .contentType(MediaType.APPLICATION_JSON)
         .body(Mono.just(inputJson), String.class)
         .exchange()

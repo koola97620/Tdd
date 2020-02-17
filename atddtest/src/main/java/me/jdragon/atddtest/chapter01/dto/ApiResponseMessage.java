@@ -1,7 +1,6 @@
-package me.jdragon.atddtest.dto;
+package me.jdragon.atddtest.chapter01.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author choijaeyong on 2020/02/14.

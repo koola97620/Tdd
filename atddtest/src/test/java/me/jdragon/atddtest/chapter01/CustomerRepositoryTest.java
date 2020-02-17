@@ -3,13 +3,12 @@ package me.jdragon.atddtest.chapter01;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import me.jdragon.atddtest.domain.Customer;
-import me.jdragon.atddtest.domain.CustomerRepository;
+import me.jdragon.atddtest.chapter01.domain.Customer;
+import me.jdragon.atddtest.chapter01.domain.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 public class CustomerRepositoryTest {

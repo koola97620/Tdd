@@ -1,4 +1,4 @@
-package me.jdragon.atddtest.domain;
+package me.jdragon.atddtest.chapter01.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

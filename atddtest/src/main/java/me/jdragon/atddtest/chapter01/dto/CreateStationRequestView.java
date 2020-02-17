@@ -1,6 +1,6 @@
-package me.jdragon.atddtest.dto;
+package me.jdragon.atddtest.chapter01.dto;
 
-import me.jdragon.atddtest.domain.Station;
+import me.jdragon.atddtest.chapter01.domain.Station;
 
 /**
  * @author choijaeyong on 2020/02/13.

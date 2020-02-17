@@ -1,7 +1,5 @@
-package me.jdragon.atddtest.domain;
+package me.jdragon.atddtest.chapter01.domain;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

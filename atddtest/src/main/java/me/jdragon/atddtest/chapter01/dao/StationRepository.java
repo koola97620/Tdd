@@ -1,9 +1,9 @@
-package me.jdragon.atddtest.dao;
+package me.jdragon.atddtest.chapter01.dao;
 
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
-import me.jdragon.atddtest.domain.Station;
+import me.jdragon.atddtest.chapter01.domain.Station;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;

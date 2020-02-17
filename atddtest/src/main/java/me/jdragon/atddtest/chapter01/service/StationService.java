@@ -1,8 +1,8 @@
-package me.jdragon.atddtest.service;
+package me.jdragon.atddtest.chapter01.service;
 
 import java.util.List;
-import me.jdragon.atddtest.dao.StationRepository;
-import me.jdragon.atddtest.domain.Station;
+import me.jdragon.atddtest.chapter01.dao.StationRepository;
+import me.jdragon.atddtest.chapter01.domain.Station;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,4 +1,4 @@
-package me.jdragon.atddtest.domain;
+package me.jdragon.atddtest.chapter01.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
