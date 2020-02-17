@@ -1,19 +1,29 @@
 package me.jdragon.atddsubway.presentation;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.when;
 
+
+import java.net.URI;
 import java.util.Objects;
-import javax.print.attribute.standard.Media;
+import javax.persistence.EntityResult;
 import me.jdragon.atddsubway.domain.CreateMemberRequestDTO;
 import me.jdragon.atddsubway.domain.CreateMemberResponseDTO;
-import me.jdragon.atddsubway.domain.Member;
+import me.jdragon.atddsubway.domain.MemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
@@ -35,10 +45,20 @@ public class MemberAcceptanceTest {
   @Autowired
   private WebTestClient webTestClient;
 
+  @Mock
+  private MemberRepository memberRepository;
+
+  @InjectMocks
+  private MemberController memberController;
+
+  @BeforeEach
+  public void setUp() {
+    memberController = new MemberController(memberRepository);
+  }
+
   @DisplayName("회원 가입")
   @Test
   public void register_member() {
-    Member member = new Member("email1@gmail.com","name1","pw1");
     CreateMemberRequestDTO createMemberRequestDTO = new CreateMemberRequestDTO("email1@gmail.com","name1", "pw1");
 
     EntityExchangeResult<CreateMemberResponseDTO> requestResult = webTestClient
@@ -69,6 +89,7 @@ public class MemberAcceptanceTest {
   @DisplayName("회원 탈퇴")
   @Test
   public void drop_member() {
+
 
   }
 
