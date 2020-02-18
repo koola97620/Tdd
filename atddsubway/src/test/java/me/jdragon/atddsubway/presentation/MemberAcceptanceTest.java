@@ -89,6 +89,33 @@ public class MemberAcceptanceTest {
   @DisplayName("회원 탈퇴")
   @Test
   public void drop_member() {
+    CreateMemberRequestDTO createMemberRequestDTO = new CreateMemberRequestDTO("email1@gmail.com","name1", "pw1");
+
+    EntityExchangeResult<CreateMemberResponseDTO> requestResult = webTestClient
+        .post().uri("/members")
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(Mono.just(createMemberRequestDTO), CreateMemberRequestDTO.class)
+        .exchange()
+        .expectStatus().isCreated()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON)
+        .expectBody(CreateMemberResponseDTO.class)
+        .returnResult();
+
+    Long id = Objects.requireNonNull(requestResult.getResponseBody()).getId();
+
+    webTestClient.delete().uri("/members/" + id)
+        .exchange()
+        .expectStatus().isNoContent()
+    ;
+
+    webTestClient.get()
+        .uri("/members/" + id)
+        .exchange()
+        .expectStatus().isNoContent()
+        ;
+
+
+
 
 
   }
