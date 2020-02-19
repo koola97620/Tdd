@@ -7,6 +7,7 @@ import me.jdragon.atddsubway.domain.CreateMemberResponseDTO;
 import me.jdragon.atddsubway.domain.Member;
 import me.jdragon.atddsubway.domain.MemberRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,5 +43,9 @@ public class MemberController {
     return ResponseEntity.ok(CreateMemberResponseDTO.of(member));
   }
 
+  @DeleteMapping("/members/{id}")
+  public ResponseEntity deleteMember(@PathVariable Long id) {
+    return ResponseEntity.noContent().build();
+  }
 
 }
