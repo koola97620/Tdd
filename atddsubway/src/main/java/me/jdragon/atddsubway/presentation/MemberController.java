@@ -45,6 +45,7 @@ public class MemberController {
 
   @DeleteMapping("/members/{id}")
   public ResponseEntity deleteMember(@PathVariable Long id) {
+    memberRepository.deleteById(id);
     return ResponseEntity.noContent().build();
   }
 
