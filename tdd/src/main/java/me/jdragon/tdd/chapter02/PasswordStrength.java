@@ -6,7 +6,9 @@ package me.jdragon.tdd.chapter02;
  * @description
  */
 public enum PasswordStrength {
-  STRONG();
+  STRONG(),NORMAL();
+
+
 
   PasswordStrength() {
 

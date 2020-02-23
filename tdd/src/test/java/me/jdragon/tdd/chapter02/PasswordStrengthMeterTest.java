@@ -17,8 +17,18 @@ class PasswordStrengthMeterTest {
     PasswordStrength result = passwordStrengthMeter.meter("abab2121");
     assertThat(result).isEqualTo(PasswordStrength.STRONG);
 
-    PasswordStrength result2 = passwordStrengthMeter.meter("abc");
+    PasswordStrength result2 = passwordStrengthMeter.meter("abc12311");
     assertThat(result2).isEqualTo(PasswordStrength.STRONG);
+  }
+
+  @Test
+  public void meetsOtherCriteria_expect_for_Length_Then_Normal() {
+    PasswordStrengthMeter meter = new PasswordStrengthMeter();
+    PasswordStrength result = meter.meter("ab12!@A");
+    assertThat(result).isEqualTo(PasswordStrength.NORMAL);
+
+    PasswordStrength result2 = meter.meter("ABC12!");
+    assertThat(result2).isEqualTo(PasswordStrength.NORMAL);
   }
 
 }
