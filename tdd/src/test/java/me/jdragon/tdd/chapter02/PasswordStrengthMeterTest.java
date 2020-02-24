@@ -63,4 +63,9 @@ class PasswordStrengthMeterTest {
     assertStrength("ABZFF" , PasswordStrength.WEAK);
   }
 
+  @Test
+  public void meetsNoCriteria_Then_Weak() {
+    assertStrength("abc" , PasswordStrength.WEAK);
+  }
+
 }
