@@ -33,4 +33,14 @@ class PasswordStrengthMeterTest {
     assertThat(result).isEqualTo(expStr);
   }
 
+  @Test
+  public void nullInput_Then_Invalid() {
+    assertStrength(null, PasswordStrength.INVALID);
+  }
+
+  @Test
+  public void emptyInput_Then_Invalid() {
+    assertStrength("",PasswordStrength.INVALID);
+  }
+
 }
