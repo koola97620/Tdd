@@ -13,8 +13,8 @@ class PasswordStrengthMeterTest {
   private PasswordStrengthMeter meter = new PasswordStrengthMeter();
   @Test
   public void meetsAllCriteira_Then_Strong() {
-    assertStrength("abab2121" , PasswordStrength.STRONG);
-    assertStrength("abc12311" , PasswordStrength.STRONG);
+    assertStrength("abAb2121" , PasswordStrength.STRONG);
+    assertStrength("abC12311" , PasswordStrength.STRONG);
   }
 
   @Test
@@ -41,6 +41,11 @@ class PasswordStrengthMeterTest {
   @Test
   public void emptyInput_Then_Invalid() {
     assertStrength("",PasswordStrength.INVALID);
+  }
+
+  @Test
+  public void meetsOtherCriteria_except_for_Uppercase_Then_Normal() {
+    assertStrength("ab12!@#$" , PasswordStrength.NORMAL);
   }
 
 }
