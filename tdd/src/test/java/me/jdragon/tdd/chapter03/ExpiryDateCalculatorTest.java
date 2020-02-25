@@ -19,14 +19,14 @@ public class ExpiryDateCalculatorTest {
   @DisplayName("만원 납부하면 한달 뒤가 만료일이 됨 ")
   @Test
   public void pay_10000_and_3_1_Then_4_1_expiryDate() {
-    LocalDate billingDate = LocalDate.of(2020, 3, 1);
-    int payAmount = 10_000;
+    assertExpiryDATE(LocalDate.of(2020, 3, 1), 10_000, LocalDate.of(2020,4,1));
+    assertExpiryDATE(LocalDate.of(2020, 5, 2), 10_000, LocalDate.of(2020,6,2));
+  }
+
+  private void assertExpiryDATE(LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate) {
     ExpiryDateCalculator cal = new ExpiryDateCalculator();
-    LocalDate expiryDate = cal.calculateExpiryDate(billingDate, payAmount);
-
-    assertThat(expiryDate).isEqualTo(LocalDate.of(2020,4,1));
-
-
+    LocalDate realExpiryDate = cal.calculateExpiryDate(billingDate, payAmount);
+    assertThat(realExpiryDate).isEqualTo(expectedExpiryDate);
   }
 
 
