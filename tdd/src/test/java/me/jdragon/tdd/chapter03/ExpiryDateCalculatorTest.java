@@ -3,6 +3,8 @@ package me.jdragon.tdd.chapter03;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -72,12 +74,31 @@ public class ExpiryDateCalculatorTest {
 
   }
 
+  @DisplayName("이만원 이상 납부하면 비례해서 만료일 계산")
+  @Test
+  public void pay_more_20000_calculate_expiryDate() {
+    assertExpiryDATE(
+        PayData.builder()
+        .billingDate(LocalDate.of(2019,3,1))
+        .payAmount(20_000)
+        .build() , LocalDate.of(2019,5,1));
+  }
+
+  @DisplayName("첫 납부일과 만료일 일자가 다를때 이만원 이상 납부")
+  @Test
+  public void pay_more_20000_And_FirstBillingDateDay_is_not_same_ExpiryDateDay() {
+    assertExpiryDATE(
+        PayData.builder()
+            .firstBillingDate(LocalDate.of(2019,1,31))
+            .billingDate(LocalDate.of(2019,2,28))
+            .payAmount(20_000)
+            .build() , LocalDate.of(2019,4,30));
+  }
+
   private void assertExpiryDATE(PayData payData, LocalDate expectedExpiryDate) {
     ExpiryDateCalculator cal = new ExpiryDateCalculator();
     LocalDate realExpiryDate = cal.calculateExpiryDate(payData);
     assertThat(realExpiryDate).isEqualTo(expectedExpiryDate);
   }
-
-
 
 }
