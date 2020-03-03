@@ -95,6 +95,29 @@ public class ExpiryDateCalculatorTest {
             .build() , LocalDate.of(2019,4,30));
   }
 
+  @DisplayName("십만원을 납부하면 1년 제공")
+  @Test
+  public void pay_100000_receive_one_year() {
+    assertExpiryDATE(PayData.builder()
+        .billingDate(LocalDate.of(2019,1,28))
+        .payAmount(100_000)
+        .build() , LocalDate.of(2020,1,28));
+  }
+
+  // TODO: 2020-03-04 숙제
+  @DisplayName("10만원 납부하면 1년 제공인데 2월29일에 납 ")
+  @Test
+  public void pay_100000_receive_one_year_but_billingDate_2020_02_29() {
+
+  }
+
+  // TODO: 2020-03-04 숙제
+  @DisplayName("13만원 납부시 1년 3개월 뒤가 만료일이 되어야 한다")
+  @Test
+  public void pay_130000_receive_fifteen_years() {
+
+  }
+
   private void assertExpiryDATE(PayData payData, LocalDate expectedExpiryDate) {
     ExpiryDateCalculator cal = new ExpiryDateCalculator();
     LocalDate realExpiryDate = cal.calculateExpiryDate(payData);
