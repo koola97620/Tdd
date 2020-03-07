@@ -3,10 +3,13 @@ package me.jdragon.tdd.chapter07_2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import me.jdragon.tdd.chapter07_2.user.DupIdException;
+import me.jdragon.tdd.chapter07_2.user.User;
+import me.jdragon.tdd.chapter07_2.user.UserRegister;
+import me.jdragon.tdd.chapter07_2.user.WeakPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Spy;
 
 /**
  * @author choijaeyong on 2020/03/07.

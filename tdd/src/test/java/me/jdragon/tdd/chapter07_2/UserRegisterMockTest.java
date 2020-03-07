@@ -4,6 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 
+import me.jdragon.tdd.chapter07_2.user.EmailNotifier;
+import me.jdragon.tdd.chapter07_2.user.UserRegister;
+import me.jdragon.tdd.chapter07_2.user.UserRepository;
+import me.jdragon.tdd.chapter07_2.user.WeakPasswordChecker;
+import me.jdragon.tdd.chapter07_2.user.WeakPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

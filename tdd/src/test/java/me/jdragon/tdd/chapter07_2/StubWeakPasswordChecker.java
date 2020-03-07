@@ -1,11 +1,13 @@
 package me.jdragon.tdd.chapter07_2;
 
+import me.jdragon.tdd.chapter07_2.user.WeakPasswordChecker;
+
 /**
  * @author choijaeyong on 2020/03/07.
  * @project tdd
  * @description
  */
-public class StubWeakPasswordChecker implements WeakPasswordChecker{
+public class StubWeakPasswordChecker implements WeakPasswordChecker {
   private boolean weak;
   public void setWeak(boolean weak) {
     this.weak = weak;

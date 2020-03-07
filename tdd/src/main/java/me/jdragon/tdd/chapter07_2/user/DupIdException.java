@@ -1,4 +1,4 @@
-package me.jdragon.tdd.chapter07_2;
+package me.jdragon.tdd.chapter07_2.user;
 
 /**
  * @author choijaeyong on 2020/03/07.
