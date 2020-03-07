@@ -7,6 +7,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.net.http.HttpTimeoutException;
+import java.time.Duration;
 
 /**
  * @author choijaeyong on 2020/03/07.
@@ -15,12 +17,22 @@ import java.net.http.HttpResponse.BodyHandlers;
  */
 public class CardNumberValidator {
 
+  private String server;
+
+  public CardNumberValidator() {}
+
+  public CardNumberValidator(String server) {
+    this.server = server;
+  }
+
   public CardValidity validate(String cardNumber) {
     HttpClient httpClient = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(""))
+        .uri(URI.create(server + "/card"))
         .header("Content-Type", "text/plain")
-        .POST(BodyPublishers.ofString(cardNumber)).build();
+        .POST(BodyPublishers.ofString(cardNumber))
+        .timeout(Duration.ofSeconds(3))
+        .build();
     try {
       HttpResponse<String> response = httpClient.send(request, BodyHandlers.ofString());
       switch (response.body()) {
@@ -30,7 +42,10 @@ public class CardNumberValidator {
         case "theft": return CardValidity.THEFT;
         default: return CardValidity.UNKNOWN;
       }
-    } catch(IOException | InterruptedException e) {
+    } catch (HttpTimeoutException e) {
+      return CardValidity.TIMEOUT;
+    }
+    catch (IOException | InterruptedException e) {
       return CardValidity.ERROR;
     }
 

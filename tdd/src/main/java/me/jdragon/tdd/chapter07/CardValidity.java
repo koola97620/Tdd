@@ -6,6 +6,10 @@ package me.jdragon.tdd.chapter07;
  * @description
  */
 public enum CardValidity {
-  VALID(),INVALID(),EXPIRED(),THEFT(), ERROR(),UNKNOWN();
+  VALID(),INVALID(),EXPIRED(),THEFT(), ERROR(),UNKNOWN(),TIMEOUT();
+
+  public CardValidity getValidity() {
+    return this;
+  }
 
 }

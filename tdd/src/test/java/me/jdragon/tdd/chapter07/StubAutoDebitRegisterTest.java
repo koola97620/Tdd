@@ -13,13 +13,12 @@ import org.junit.jupiter.api.Test;
 class StubAutoDebitRegisterTest {
   private AutoDebitRegister autoDebitRegister;
   private StubCardNumberValidator stubCardNumberValidator;
-  private JpaAutoDebitInfoRepository jpaAutoDebitInfoRepository;
-
+  private MemoryAutoDebitInfoRepository jpaAutoDebitInfoRepository;
 
   @BeforeEach
   public void setUp() {
     stubCardNumberValidator = new StubCardNumberValidator();
-    jpaAutoDebitInfoRepository = new JpaAutoDebitInfoRepository();
+    jpaAutoDebitInfoRepository = new MemoryAutoDebitInfoRepository();
     autoDebitRegister = new AutoDebitRegister(stubCardNumberValidator,
         jpaAutoDebitInfoRepository);
   }

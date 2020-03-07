@@ -1,19 +1,26 @@
 package me.jdragon.tdd.chapter07_2.user;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import lombok.NoArgsConstructor;
+
 /**
  * @author choijaeyong on 2020/03/07.
  * @project tdd
  * @description
  */
+
+@Entity
+@NoArgsConstructor
 public class User {
+  @Id
+  private String id;
+  private String password;
+  private String email;
 
-  private final String id;
-  private final String pw1;
-  private final String email;
-
-  public User(String id, String pw1, String email) {
+  public User(String id, String password, String email) {
     this.id = id;
-    this.pw1 = pw1;
+    this.password = password;
     this.email = email;
   }
 

@@ -22,4 +22,6 @@ public class MemoryUserRepository implements UserRepository {
   public User findById(String id) {
     return users.get(id);
   }
+
+
 }

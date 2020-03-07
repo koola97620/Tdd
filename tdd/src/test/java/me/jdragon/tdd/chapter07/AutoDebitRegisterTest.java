@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
  * @description
  */
 class AutoDebitRegisterTest {
-
-
   private AutoDebitRegister autoDebitRegister;
+  private CardNumberValidator cardNumberValidator;
+  private MemoryAutoDebitInfoRepository jpaAutoDebitInfoRepository;
 
   @BeforeEach
   public void setUp() {
-    CardNumberValidator cardNumberValidator = new CardNumberValidator();
-    JpaAutoDebitInfoRepository jpaAutoDebitInfoRepository = new JpaAutoDebitInfoRepository();
+    cardNumberValidator = new CardNumberValidator();
+    jpaAutoDebitInfoRepository = new MemoryAutoDebitInfoRepository();
     autoDebitRegister = new AutoDebitRegister(cardNumberValidator,
         jpaAutoDebitInfoRepository);
   }
