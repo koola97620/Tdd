@@ -4,8 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import me.jdragon.tdd.chapter07_2.user.DupIdException;
+import me.jdragon.tdd.chapter07_2.user.RegisterReq;
 import me.jdragon.tdd.chapter07_2.user.User;
 import me.jdragon.tdd.chapter07_2.user.UserRegister;
+import me.jdragon.tdd.chapter07_2.user.UserRegisterService;
 import me.jdragon.tdd.chapter07_2.user.WeakPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,11 +23,12 @@ public class UserRegisterTest {
   private StubWeakPasswordChecker stubPasswordChecker = new StubWeakPasswordChecker();
   private MemoryUserRepository fakeRepository = new MemoryUserRepository();
   private SpyEmailNotifier spyEmailNotifer = new SpyEmailNotifier();
+  private UserRegisterService userRegisterService;
 
   @BeforeEach
   public void setUp() {
     userRegister = new UserRegister(stubPasswordChecker, fakeRepository, spyEmailNotifer);
-
+    userRegisterService = new UserRegisterService();
   }
 
   @DisplayName("약한 암호면 가입 실패")
@@ -48,6 +51,27 @@ public class UserRegisterTest {
     );
   }
 
+  @DisplayName("chapter10 - 같은 ID가 존재하면 가입 실패")
+  @Test
+  public void dupIdExists_using_chapter10() {
+    // 이미 같은 ID 존재하는 상황 만들기 . 검증 범위를 벗어나는 값은 빼라.
+    fakeRepository.save(User.builder()
+        .id("dupid")
+//        .email("koo@gmail.com")
+//        .password("abcd")
+        .build());
+
+    RegisterReq req = RegisterReq.builder()
+        .id("dupid")
+//        .name("다른이름")
+//        .email("koo@gmail.com")
+//        .password("abcd")
+        .build();
+
+    assertThatExceptionOfType(DupIdException.class).isThrownBy(
+        () -> userRegisterService.register(req)
+    );
+  }
 
   @DisplayName("같은 ID가 없으면 가입 성공")
   @Test

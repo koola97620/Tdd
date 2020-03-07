@@ -2,6 +2,7 @@ package me.jdragon.tdd.chapter07_2.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 /**
@@ -18,6 +19,7 @@ public class User {
   private String password;
   private String email;
 
+  @Builder
   public User(String id, String password, String email) {
     this.id = id;
     this.password = password;
