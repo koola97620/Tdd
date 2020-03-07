@@ -7,4 +7,5 @@ package me.jdragon.tdd.chapter07_2;
  */
 public interface EmailNotifier {
 
+  void sendRegisterEmail(String email);
 }
