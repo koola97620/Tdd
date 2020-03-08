@@ -22,5 +22,5 @@ public class MemberDao {
   public List<Member> selectAll() {
     return Collections.emptyList();
   }
-
+  
 }
