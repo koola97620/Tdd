@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @author choijaeyong on 2020/02/24.
- * @project tdd
- * @description
  * 서비스를 사용하려면 매달 1만원을 선불로 납부한다. 납부일 기준으로 한 달 뒤가 서비스 만료일이 된다
  * 2개월 이상 요금을 납부할 수 있다
  * 10만 원을 납부하면 서비스를 1년 제공한다.
@@ -104,7 +102,6 @@ public class ExpiryDateCalculatorTest {
         .build() , LocalDate.of(2020,1,28));
   }
 
-  // TODO: 2020-03-04 숙제
   @DisplayName("10만원 납부하면 1년 제공인데 2월29일에 납부 ")
   @Test
   public void pay_100000_receive_one_year_but_billingDate_2020_02_29() {
@@ -114,7 +111,6 @@ public class ExpiryDateCalculatorTest {
         .build() , LocalDate.of(2021,2,28));
   }
 
-  // TODO: 2020-03-04 숙제
   @DisplayName("13만원 납부시 1년 3개월 뒤가 만료일이 되어야 한다")
   @Test
   public void pay_130000_receive_fifteen_months() {
