@@ -21,8 +21,9 @@ public class PasswordStrengthMeterTest {
 
   @Test
   void meetsAllCriteria_Then_Strong() {
-    PasswordStrength passwordStrength = meter.meter("ab12!@AB");
-    assertThat(passwordStrength).isEqualTo(PasswordStrength.STRONG);
+    //PasswordStrength passwordStrength = meter.meter("ab12!@AB");
+    //assertThat(passwordStrength).isEqualTo(PasswordStrength.STRONG);
+    assertStrength("ab12!@AB", PasswordStrength.STRONG);
   }
 
   @Test
@@ -41,6 +42,8 @@ public class PasswordStrengthMeterTest {
   }
 
   private void assertStrength(String password, PasswordStrength expStr) {
+    PasswordStrength meter = this.meter.meter(password);
+    assertThat(meter).isEqualTo(expStr);
 
   }
 }
