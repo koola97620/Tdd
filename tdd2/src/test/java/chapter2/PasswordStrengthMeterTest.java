@@ -40,4 +40,7 @@ public class PasswordStrengthMeterTest {
     assertThat(result).isEqualTo(PasswordStrength.NORMAL);
   }
 
+  private void assertStrength(String password, PasswordStrength expStr) {
+
+  }
 }
