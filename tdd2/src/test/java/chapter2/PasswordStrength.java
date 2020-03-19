@@ -6,5 +6,5 @@ package chapter2;
  * @description
  */
 public enum PasswordStrength {
-  STRONG(),NORMAL();
+  STRONG(),NORMAL(),INVALID();
 }
