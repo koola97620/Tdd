@@ -7,9 +7,7 @@ public class PasswordStrengthMeter {
 
   public PasswordStrength meter(String s) {
     if(s == null || "".equals(s)) return PasswordStrength.INVALID;
-
     int metCounts = getMetCounts(s);
-
     if (metCounts <= 1) return PasswordStrength.WEAK;
     // 조건이 하나만 충족하지 못하고 나머지 2개는 충족하는 경우.
 //    if (!lengthEnough) {
@@ -20,7 +18,6 @@ public class PasswordStrengthMeter {
 //    }
 //    if (!containUpper) return PasswordStrength.NORMAL;
     if (metCounts == 2) return PasswordStrength.NORMAL;
-
     return PasswordStrength.STRONG;
   }
 
