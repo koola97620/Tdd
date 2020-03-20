@@ -7,17 +7,20 @@ public class PasswordStrengthMeter {
 
   public PasswordStrength meter(String s) {
     if(s == null || "".equals(s)) return PasswordStrength.INVALID;
+    boolean lengthEnough = s.length() >= 8;
+    boolean isContainNum = isContainNum(s);
+    boolean containUpper = isContainUpper(s);
 
-    if (s.length() < 8) {
-      return PasswordStrength.NORMAL;
+    if (lengthEnough && !isContainNum && !containUpper) {
+      return PasswordStrength.WEAK;
     }
 
-    boolean isContainNum = isContainNum(s);
+    if (!lengthEnough) {
+      return PasswordStrength.NORMAL;
+    }
     if (!isContainNum) {
       return PasswordStrength.NORMAL;
     }
-
-    boolean containUpper = isContainUpper(s);
     if (!containUpper) return PasswordStrength.NORMAL;
 
     return PasswordStrength.STRONG;
