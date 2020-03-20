@@ -64,6 +64,11 @@ public class PasswordStrengthMeterTest {
     assertStrength("12345", PasswordStrength.WEAK);
   }
 
+  @Test
+  public void meetsOnlyUppercaseCriteria_Then_Weak() {
+    assertStrength("ABCDE", PasswordStrength.WEAK);
+  }
+
   private void assertStrength(String password, PasswordStrength expStr) {
     PasswordStrength meter = this.meter.meter(password);
     assertThat(meter).isEqualTo(expStr);
