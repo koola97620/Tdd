@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sun.security.util.Password;
 
 /**
  * @author choijaeyong on 2020/03/17.
@@ -56,6 +57,11 @@ public class PasswordStrengthMeterTest {
   @Test
   public void meetsOnlyLengthCriteria_Then_Weak() {
     assertStrength("abdefghi", PasswordStrength.WEAK);
+  }
+
+  @Test
+  public void meetsOnlyNumCriteria_Then_Weak() {
+    assertStrength("12345", PasswordStrength.WEAK);
   }
 
   private void assertStrength(String password, PasswordStrength expStr) {
