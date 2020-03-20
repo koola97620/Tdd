@@ -69,6 +69,11 @@ public class PasswordStrengthMeterTest {
     assertStrength("ABCDE", PasswordStrength.WEAK);
   }
 
+  @Test
+  public void meetsNoCritera_Then_Normal() {
+    assertStrength("abc", PasswordStrength.WEAK);
+  }
+
   private void assertStrength(String password, PasswordStrength expStr) {
     PasswordStrength meter = this.meter.meter(password);
     assertThat(meter).isEqualTo(expStr);
