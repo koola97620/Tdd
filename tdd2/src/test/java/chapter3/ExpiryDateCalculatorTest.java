@@ -16,6 +16,7 @@ public class ExpiryDateCalculatorTest {
   public void 만원_납부하면_한달_뒤가_만료일이됨() {
     assertExpiryDate(LocalDate.of(2019,3,1) , 10_000, LocalDate.of(2019,4,1));
     assertExpiryDate(LocalDate.of(2019,5,5) , 10_000, LocalDate.of(2019,6,5));
+    assertExpiryDate(LocalDate.of(2019,6,4) , 10_000, LocalDate.of(2019,7,4));
   }
 
   private void assertExpiryDate(LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate) {
