@@ -30,6 +30,7 @@ public class ExpiryDateCalculatorTest {
     LocalDate expiryDate = cal.calculateExpiryDate(billingDate, payAmount);
 
     assertThat(expiryDate).isEqualTo(expectedExpiryDate);
+    assertThat(expiryDate).isEqualTo(expectedExpiryDate);
   }
 
 }
