@@ -3,6 +3,7 @@ package chapter3;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import org.assertj.core.internal.bytebuddy.asm.Advice.Local;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -104,6 +105,16 @@ public class ExpiryDateCalculatorTest {
     assertExpiryDate(payData3, LocalDate.of(2019,7,31));
   }
 
+  @Test
+  public void 십만원을_납부하면_1년_제공() {
+    assertExpiryDate(
+        PayData.builder()
+            .billingDate(LocalDate.of(2019,1,28))
+            .payAmount(100_000)
+            .build(),
+        LocalDate.of(2020,1,28)
+    );
+  }
 
 
   private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
