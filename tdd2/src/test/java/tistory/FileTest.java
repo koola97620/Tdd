@@ -25,12 +25,16 @@ public class FileTest {
     payService = new PayService();
   }
 
+  // 10% 할인 쿠폰을 적용했을 때 잘 계산하는지에 대한 테스트 케이스 인줄 알았는데
+  // 사실 안에 있는 로직은 금액에 대한 할인을 계산하는 경우.
+  // given_1000_won_discount_coupon_then_calculate_price
+
   @Test
-  public void given_1000_won_discount_coupon_then_calculate_price() {
-    DiscountCoupon discountCoupon = new DiscountCoupon(1000);
-    Product pencil = new Product("연필", 5000);
+  public void given_10_percent_discount_coupon_then_calculate_price() {
+    DiscountCoupon discountCoupon = new DiscountCoupon(10);
+    Product pencil = new Product("연필", 100);
     pencil.applyDiscountCoupon(discountCoupon);
-    assertThat(pencil.getPrice()).isEqualTo(4000);
+    assertThat(pencil.getPrice()).isEqualTo(90);
   }
 
   @Test
@@ -42,41 +46,6 @@ public class FileTest {
 //    }
     for (Path filePath :  fileList.collect(Collectors.toList())) {
       payService.savePayResult(filePath);
-    }
-  }
-
-  private class DiscountCoupon {
-    private int value;
-
-    public DiscountCoupon(int value) {
-      this.value = value;
-    }
-
-    public int getValue() {
-      return value;
-    }
-  }
-
-  private class Product {
-
-    private String name;
-    private int price;
-
-    public Product(String name, int price) {
-      this.name = name;
-      this.price = price;
-    }
-
-    public void applyDiscountCoupon(DiscountCoupon discountCoupon) {
-      this.price -= discountCoupon.value;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public int getPrice() {
-      return price;
     }
   }
 }
