@@ -30,7 +30,7 @@ public class FileTest {
   // given_1000_won_discount_coupon_then_calculate_price
 
   @Test
-  public void given_10_percent_discount_coupon_then_calculate_price() {
+  public void given_10_percent_discount_coupon_then_calculate_product_price() {
     DiscountCoupon discountCoupon = new DiscountCoupon(10);
     Product pencil = new Product("연필", 100);
     pencil.applyDiscountCoupon(discountCoupon);
@@ -40,12 +40,17 @@ public class FileTest {
   @Test
   public void given_file_then_save() throws IOException {
     String path = "/Users/jdragon/exam/pay/results";
+    if(System.getProperty("os.name").toLowerCase().indexOf("win")>=0){
+      path = "c:"+ path;
+    }
     Stream<Path> fileList = Files.list(Paths.get(path));
-//    if(System.getProperty("os.name").toLowerCase().indexOf("win")>=0){
-//      targetDirPath = "c:"+ targetDirPath;
-//    }
     for (Path filePath :  fileList.collect(Collectors.toList())) {
       payService.savePayResult(filePath);
     }
   }
+
+
+
 }
+
+
