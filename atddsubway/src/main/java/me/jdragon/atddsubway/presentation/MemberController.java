@@ -1,6 +1,8 @@
 package me.jdragon.atddsubway.presentation;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import me.jdragon.atddsubway.domain.CreateMemberRequestDTO;
 import me.jdragon.atddsubway.domain.CreateMemberResponseDTO;
@@ -47,6 +49,14 @@ public class MemberController {
   public ResponseEntity deleteMember(@PathVariable Long id) {
     memberRepository.deleteById(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/members/test")
+  public List<Member> testGet() {
+    List<Member> members = new ArrayList<>();
+    Member member = new Member("aa", "dd", "cc");
+    members.add(member);
+    return members;
   }
 
 }
